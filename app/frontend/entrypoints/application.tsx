@@ -1,3 +1,13 @@
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import { App } from '../App'
 
-createRoot(document.getElementById('root')!).render(<h1>Debt Ledger</h1>)
+// Rails renders <div id="root"> (app/views/spa/show.html.erb). React owns everything inside it.
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
+)
