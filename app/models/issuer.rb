@@ -1,5 +1,5 @@
 class Issuer < ApplicationRecord
-  has_many :bonds, dependent: :restrict_with_error
+  has_many :bonds, -> { order(:maturity_on, :id) }, dependent: :restrict_with_error, inverse_of: :issuer
   has_many :debt_service_payments, through: :bonds
 
   enum :issuer_type, {
