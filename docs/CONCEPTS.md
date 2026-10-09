@@ -206,7 +206,7 @@ One Rails app owns the database, the API, and the HTML shell. React lives in the
 - **One test suite.** A request spec and a TypeScript type sit in the same pull request as the change.
 - **No network boundary to design.** Service-to-service auth, retries, versioned APIs, and distributed transactions do not exist.
 - **Same-origin by default.** No CORS. The session cookie and CSRF token work as Rails intends.
-- **Small teams move faster.** Debt Ledger serves a focused market. A team that size gains little from many services and pays for every boundary.
+- **Small teams move faster.** This product serves a focused market. A team that size gains little from many services and pays for every boundary.
 
 The costs are real. One bad deploy affects everything. Boot time and test time grow. Team ownership needs discipline. The usual answer is modular boundaries inside the monolith (namespaces, engines, or Packwerk packages) before splitting into services. Split when a part needs independent scaling or a separate deploy cadence, not before.
 

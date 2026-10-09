@@ -1,4 +1,4 @@
-# Debt Ledger
+# Ruby on Rails POC
 
 A Rails monolith that serves a React + TypeScript + MUI frontend through `vite_rails`. It has two sections:
 
@@ -9,14 +9,14 @@ Read [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) to follow one request from t
 
 ## Stack
 
-| Layer | Choice |
-| --- | --- |
-| Ruby | 4.0.5 |
-| Rails | 8.1.4 |
-| Database | PostgreSQL 17 in Docker, host port 5433 |
-| Frontend | React 19, TypeScript, MUI 9, React Router 7 |
+| Layer          | Choice                                               |
+| -------------- | ---------------------------------------------------- |
+| Ruby           | 4.0.5                                                |
+| Rails          | 8.1.4                                                |
+| Database       | PostgreSQL 17 in Docker, host port 5433              |
+| Frontend       | React 19, TypeScript, MUI 9, React Router 7          |
 | Bundler for JS | Vite 8 through `vite_rails`, dev server on port 3036 |
-| Tests | RSpec, FactoryBot, request specs |
+| Tests          | RSpec, FactoryBot, request specs                     |
 
 ## Prerequisites
 
@@ -55,29 +55,29 @@ npm run typecheck        # TypeScript, no emit
 
 The specs need the compose Postgres running. They do not need `bin/dev`.
 
-| Spec file | What it proves |
-| --- | --- |
-| `spec/services/bonds/schedule_generator_spec.rb` | Level-principal math, rounding remainder, stub final period |
-| `spec/services/bonds/create_spec.rb` | Bond and schedule save together or not at all |
-| `spec/models/debt_service_payment_spec.rb` | Derived `paid`, `upcoming`, `overdue` status and the `due_within` scope |
-| `spec/models/constraints_spec.rb` | Postgres rejects bad data even when validations are skipped |
-| `spec/requests/api/*_spec.rb` | HTTP contract, error shapes, strong params, and flat query counts (the N+1 guard) |
+| Spec file                                        | What it proves                                                                    |
+| ------------------------------------------------ | --------------------------------------------------------------------------------- |
+| `spec/services/bonds/schedule_generator_spec.rb` | Level-principal math, rounding remainder, stub final period                       |
+| `spec/services/bonds/create_spec.rb`             | Bond and schedule save together or not at all                                     |
+| `spec/models/debt_service_payment_spec.rb`       | Derived `paid`, `upcoming`, `overdue` status and the `due_within` scope           |
+| `spec/models/constraints_spec.rb`                | Postgres rejects bad data even when validations are skipped                       |
+| `spec/requests/api/*_spec.rb`                    | HTTP contract, error shapes, strong params, and flat query counts (the N+1 guard) |
 
 ## API
 
 All endpoints live under `/api` and speak JSON. Errors always have the shape `{ "errors": { "field": ["message"] } }`.
 
-| Method and path | Purpose |
-| --- | --- |
-| `GET /api/dashboard?days=90` | Unpaid payments due in the window, plus outstanding principal per issuer |
-| `GET /api/issuers` | Issuers, for the new-bond form |
-| `GET /api/issuers/:id` | One issuer with every bond and its schedule |
-| `POST /api/bonds` | Create a bond. The server generates its schedule |
-| `PATCH /api/debt_service_payments/:id` | Set `paid_on` |
-| `GET /api/shows` | Every show with its list entry, or `null` |
-| `POST /api/list_entries` | Add a show to My List |
-| `PATCH /api/list_entries/:id` | Change status or rating |
-| `DELETE /api/list_entries/:id` | Remove from My List |
+| Method and path                        | Purpose                                                                  |
+| -------------------------------------- | ------------------------------------------------------------------------ |
+| `GET /api/dashboard?days=90`           | Unpaid payments due in the window, plus outstanding principal per issuer |
+| `GET /api/issuers`                     | Issuers, for the new-bond form                                           |
+| `GET /api/issuers/:id`                 | One issuer with every bond and its schedule                              |
+| `POST /api/bonds`                      | Create a bond. The server generates its schedule                         |
+| `PATCH /api/debt_service_payments/:id` | Set `paid_on`                                                            |
+| `GET /api/shows`                       | Every show with its list entry, or `null`                                |
+| `POST /api/list_entries`               | Add a show to My List                                                    |
+| `PATCH /api/list_entries/:id`          | Change status or rating                                                  |
+| `DELETE /api/list_entries/:id`         | Remove from My List                                                      |
 
 ## Project layout
 
